@@ -1,0 +1,60 @@
+{
+	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+	"plugins": ["@typescript-eslint", "simple-import-sort"],
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"globals": {
+		"React": true,
+		"JSX": true
+	},
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx"],
+			"parserOptions": {
+				"project": ["./tsconfig.json"]
+			}
+		}
+	],
+	"parser": "@typescript-eslint/parser",
+	"rules": {
+		"no-unused-vars": "off",
+		"no-console": "warn",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+
+		// Sort
+		"simple-import-sort/exports": "warn",
+		"simple-import-sort/imports": [
+			"warn",
+			{
+				"groups": [
+					// ext library & side effect imports
+					["^@?\\w", "^\\u0000"],
+					// {s}css files
+					["^.+\\.s?css$"],
+					// Lib and hooks
+					["^@/utils", "^@/hooks"],
+					// components
+					["^@/components"],
+					// Other imports
+					["^@/"],
+					// relative paths up until 3 level
+					[
+						"^\\./?$",
+						"^\\.(?!/?$)",
+						"^\\.\\./?$",
+						"^\\.\\.(?!/?$)",
+						"^\\.\\./\\.\\./?$",
+						"^\\.\\./\\.\\.(?!/?$)",
+						"^\\.\\./\\.\\./\\.\\./?$",
+						"^\\.\\./\\.\\./\\.\\.(?!/?$)"
+					],
+					["^@/types"],
+					// other that didnt fit in
+					["^"]
+				]
+			}
+		]
+	}
+}
